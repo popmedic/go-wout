@@ -3,19 +3,20 @@ package wout
 import (
 	"fmt"
 	"io"
-	"log"
+
+	"github.com/popmedic/go-logger/log"
 )
 
-type wout struct{ error }
+type Wout struct{ Error error }
 
-func (err wout) Print(params ...interface{}) {
+func (err Wout) Print(params ...interface{}) {
 	if len(params) > 0 {
 		if w, ok := params[0].(io.Writer); ok {
-			fmt.Fprintf(w, err.Error())
+			fmt.Fprintf(w, err.Error.Error())
 			for _, v := range params[1:] {
-				log.Print(v)
+				log.Error(v)
 			}
-			log.Println(err)
+			log.Error(err)
 		}
 	}
 }
